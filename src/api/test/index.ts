@@ -1,4 +1,5 @@
 import Router from 'koa-router';
+import db from '@/db';
 const router = new Router();
 
 interface loginRequest {
@@ -26,9 +27,32 @@ router.get('/get-query-string', ctx => {
   ctx.body = `${foo ?? '준거 없잖아ㅡㅡ'} 의 호출`;
 });
 
+router.get('/get-db', async ctx => {
+  try {
+    const conn = db();
+
+    // const [results]: [InfoModel[], FieldPacket[]] = await conn.query<InfoModel[]>(SELECTALL);
+    const [result] = await conn.query(`SELECT * FROM test_db;`);
+    console.log(result);
+    // results.map(r => {
+    //   console.log(r.Date, r.Sabun, r.Entered, r.Exited); // interface가 적용 됐는지 확인하는 용도
+    // });
+    // res.json({ results });
+    ctx.body = {
+      success: true,
+      users: result,
+    };
+  } catch (error) {
+    console.log(error);
+    ctx.body = {
+      success: false,
+      users: [],
+    };
+  }
+});
+
 router.post('/post', ctx => {
-  const { id, pw } = <loginRequest>ctx.request.body;
-  console.log(id, pw);
+  const { id, pw } = ctx.request.body as loginRequest;
   ctx.body = {
     id,
     pw,

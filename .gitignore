@@ -10,3 +10,6 @@ dist
 ### node ###
 yarn-debug.log*
 yarn-error.log*
+
+### node ###
+.env*
