@@ -1,11 +1,9 @@
-import dotenv from 'dotenv';
 import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import testRouter from '@/api/test';
 import test2Router from '@/routes/test';
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 const app = new Koa();
 const router = new Router();
 const port = 3010;

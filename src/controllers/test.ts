@@ -8,4 +8,17 @@ export async function createUser(ctx: Context) {
     insertId,
   };
 }
-export async function getUser(ctx: Context) {}
+export async function getUser(ctx: Context) {
+  const { success, result, msg } = await testData.getUser();
+  if (success) {
+    ctx.body = {
+      success,
+      result,
+    };
+    return;
+  }
+  ctx.body = {
+    success,
+    msg,
+  };
+}

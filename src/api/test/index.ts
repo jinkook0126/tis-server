@@ -29,15 +29,8 @@ router.get('/get-query-string', ctx => {
 
 router.get('/get-db', async ctx => {
   try {
-    const conn = db();
-
-    // const [results]: [InfoModel[], FieldPacket[]] = await conn.query<InfoModel[]>(SELECTALL);
-    const [result] = await conn.query(`SELECT * FROM test_db;`);
+    const [result] = await db.query(`SELECT * FROM test_db;`);
     console.log(result);
-    // results.map(r => {
-    //   console.log(r.Date, r.Sabun, r.Entered, r.Exited); // interface가 적용 됐는지 확인하는 용도
-    // });
-    // res.json({ results });
     ctx.body = {
       success: true,
       users: result,
