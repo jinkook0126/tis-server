@@ -13,3 +13,6 @@ yarn-error.log*
 
 ### node ###
 .env*
+
+### OS ###
+.DS_Store
