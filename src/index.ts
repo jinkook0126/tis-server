@@ -1,20 +1,19 @@
+import './env';
 import Koa from 'koa';
-import Router from 'koa-router';
+import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
-import testRouter from '@/api/test';
-import test2Router from '@/routes/test';
-import test3Router from '@/api/temp/temp.route';
-
+import routes from '@/api';
 const app = new Koa();
-const router = new Router();
 const port = 3010;
 
 app.use(bodyParser());
-app.use(router.routes()).use(router.allowedMethods());
-
-router.use('/test', testRouter.routes());
-router.use('/test2', test2Router.routes());
-router.use('/test3', test3Router.routes());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }),
+);
+app.use(routes.routes()).use(routes.allowedMethods());
 
 app.listen(port, () => {
   console.log(`Koa server is listening on port ${port}`);
